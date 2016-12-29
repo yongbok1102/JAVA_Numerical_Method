@@ -67,11 +67,6 @@ class modifiedLSGS{
                     }
                 }
                 x[i] = (b[i] - sumAx[i])/A[i][i];     
-                
-                if(itr==itrmax){
-                    System.out.println("Failed to converge");
-                    break;
-                }
             }
             
             //calculating residuals (sum(|Ax-b|)/sum(|b|))
@@ -87,6 +82,11 @@ class modifiedLSGS{
                 }
             } 
             res = calRes(sumAx,b,num);
+                            
+            if(itr==itrmax){
+                System.out.println("Failed to converge");
+                break;
+            }
             
         }
         System.out.print("iter: "+ itr);
