@@ -21,6 +21,8 @@ class modifiedLSGS{
         double[] b; b = new double[num];
         double[] sumAx; sumAx = new double[num];
         int itr = 0;
+        
+        int itrmax = 1000000;
         for(int i=0; i<num; i++)
         {
             for(int j=0; j<num; j++)
@@ -64,7 +66,12 @@ class modifiedLSGS{
                         sumAx[i] += A[i][j]*x[j];
                     }
                 }
-                x[i] = (b[i] - sumAx[i])/A[i][i];              
+                x[i] = (b[i] - sumAx[i])/A[i][i];     
+                
+                if(itr==itrmax){
+                    System.out.println("Failed to converge");
+                    break;
+                }
             }
             
             //calculating residuals (sum(|Ax-b|)/sum(|b|))
