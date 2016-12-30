@@ -108,8 +108,13 @@ class GDSol{
         }
         double res = calRes(sumAx,b,num);
         itr = itr + 1;
-        if(res<=tol)
-            break;
+        if(res<=tol){
+            System.out.print("itr: " + itr + ", ");
+            for(int i=0; i<num; i++){
+                System.out.print("x_"+(i+1)+" = " + x[i] + ", ");
+            }
+            System.out.println("resid: " + res);
+        }
         else{
             while(res>tol){
                 itr++;
