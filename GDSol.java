@@ -108,76 +108,79 @@ class GDSol{
         }
         double res = calRes(sumAx,b,num);
         itr = itr + 1;
-        
-        while(res>tol){
-            itr++;
-            for(int i=0; i<num; i++)
-            {
-                xoold[i] = xold[i];
-            }
-            
-            for(int i=0; i<num; i++)
-            {
-                xold[i] = x[i];
-            }
-            
-            for(int i=0; i<num; i++){
-                sumAx[i] = 0;
-                sumAxold[i] = 0;
-                sumAxoold[i] = 0;
-                grad[i] = 0;
-                gradold[i] = 0;
-                gradoold[i] = 0;
-            }
-            
-            for(int i=0;i<num;i++)
-            {
-                for(int j=0;j<num;j++)
+        if(res<=tol)
+            break;
+        else{
+            while(res>tol){
+                itr++;
+                for(int i=0; i<num; i++)
                 {
-                    sumAxold[i] += A[i][j]*xold[j];
-                    sumAxoold[i] += A[i][j]*xoold[j];                    
+                    xoold[i] = xold[i];
                 }
-            }
-            
-            for(int i=0; i<num; i++)
-            {
-                for(int j=0; j<num; j++)
+
+                for(int i=0; i<num; i++)
                 {
-                    gradold[i] += A[j][i]*(sumAxold[j] - b[j]);
-                    gradoold[i] += A[j][i]*(sumAxoold[j] - b[j]);
+                    xold[i] = x[i];
                 }
-            }
-            
-            for(int i=0; i<num; i++)
-            {
-                difgrad[i] = gradold[i] - gradoold[i];
-                difx[i] = xold[i] - xoold[i];
-            }
-            
-            stp = innerProd(difx, difgrad,num)
-            * Math.pow(Norm(difgrad,num),-2);
-            
-            for(int i=0; i<num; i++)
-            {
-                x[i] = xold[i] - stp*gradold[i];
-            }
-            
-            for(int i=0;i<num;i++)
-            {
-                sumAx[i] = 0;
-            }
-            for(int i=0; i<num;i++)
-            {
-                for(int j=0;j<num;j++)
+
+                for(int i=0; i<num; i++){
+                    sumAx[i] = 0;
+                    sumAxold[i] = 0;
+                    sumAxoold[i] = 0;
+                    grad[i] = 0;
+                    gradold[i] = 0;
+                    gradoold[i] = 0;
+                }
+
+                for(int i=0;i<num;i++)
                 {
-                    sumAx[i] += A[i][j]*x[j];
+                    for(int j=0;j<num;j++)
+                    {
+                        sumAxold[i] += A[i][j]*xold[j];
+                        sumAxoold[i] += A[i][j]*xoold[j];                    
+                    }
                 }
+
+                for(int i=0; i<num; i++)
+                {
+                    for(int j=0; j<num; j++)
+                    {
+                        gradold[i] += A[j][i]*(sumAxold[j] - b[j]);
+                        gradoold[i] += A[j][i]*(sumAxoold[j] - b[j]);
+                    }
+                }
+
+                for(int i=0; i<num; i++)
+                {
+                    difgrad[i] = gradold[i] - gradoold[i];
+                    difx[i] = xold[i] - xoold[i];
+                }
+
+                stp = innerProd(difx, difgrad,num)
+                * Math.pow(Norm(difgrad,num),-2);
+
+                for(int i=0; i<num; i++)
+                {
+                    x[i] = xold[i] - stp*gradold[i];
+                }
+
+                for(int i=0;i<num;i++)
+                {
+                    sumAx[i] = 0;
+                }
+                for(int i=0; i<num;i++)
+                {
+                    for(int j=0;j<num;j++)
+                    {
+                        sumAx[i] += A[i][j]*x[j];
+                    }
+                }
+
+                res = calRes(sumAx,b,num);
+
+                if(itr==itrmax)
+                    break;
             }
-            
-            res = calRes(sumAx,b,num);
-            
-            if(itr==itrmax)
-                break;
         }
         System.out.print("itr: " + itr + ", ");
         for(int i=0; i<num; i++){
