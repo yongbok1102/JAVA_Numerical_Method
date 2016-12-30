@@ -88,7 +88,7 @@ class GDSol{
         {
             for(int j=0;j<num;j++)
             {
-                grad[i] +=A[j][i]*(sumAx[i] - b[i]);
+                grad[i] +=A[j][i]*(sumAx[j] - b[j]);
             }
         }
         for(int i=0;i<num;i++)
