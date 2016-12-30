@@ -179,7 +179,7 @@ class GDSol{
             if(itr==itrmax)
                 break;
         }
-        System.out.print("itr: " + itr);
+        System.out.print("itr: " + itr + ", ");
         for(int i=0; i<num; i++){
             System.out.print("x_"+(i+1)+" = " + x[i] + ", ");
         }
