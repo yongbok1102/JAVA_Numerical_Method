@@ -3,7 +3,7 @@ import java.io.*;
 // A Java code for solving linear system using Gradient Descent Method
 //x_{n+1} = x_{n} - stp*AT(Ax-b)
 //stp is determined by
-// stp = (x_{n}-x_{n-1})(grad(F)_{n}-grad(F)_{n-1})/(norm(F_{n}-F_{n-1}))^2
+// stp = (x_{n}-x_{n-1})(grad(F)_{n}-grad(F)_{n-1})/(norm(grad(F_{n})-grad(F_{n-1})))^2
 
 class GDSol{
     public static void main(String[] args) throws IOException{
