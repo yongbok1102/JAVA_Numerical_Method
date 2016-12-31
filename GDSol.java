@@ -161,8 +161,11 @@ class GDSol{
                     difx[i] = xold[i] - xoold[i];
                 }
 
-                stp = innerProd(difx, difgrad,num)
-                * Math.pow(Norm(difgrad,num),-2);
+                if(Norm(difgrad,num)<=1e-011)
+                    stp = 1;
+                else
+                    stp = innerProd(difx, difgrad,num)
+                    * Math.pow(Norm(difgrad,num),-2);
 
                 for(int i=0; i<num; i++)
                 {
